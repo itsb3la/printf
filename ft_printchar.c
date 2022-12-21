@@ -6,12 +6,12 @@
 /*   By: alnavarr <alnavarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:33 by alnavarr          #+#    #+#             */
-/*   Updated: 2022/12/21 12:25:32 by alnavarr         ###   ########.fr       */
+/*   Updated: 2022/12/21 12:26:56 by alnavarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include<unistd.h>
+//#include<unistd.h>
 
 void	ft_printchar(char *str)
 {
@@ -25,7 +25,7 @@ void	ft_printchar(char *str)
 		i++;
 	}
 }
-
-int	main(void)
+/*int	main(void)
 {
 	ft_printchar("");
+*/
