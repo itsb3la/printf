@@ -6,7 +6,7 @@
 /*   By: alnavarr <alnavarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:33 by alnavarr          #+#    #+#             */
-/*   Updated: 2022/12/21 12:08:46 by alnavarr         ###   ########.fr       */
+/*   Updated: 2022/12/21 12:25:32 by alnavarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,4 @@ void	ft_printchar(char *str)
 
 int	main(void)
 {
-	ft_printchar("hola");
-}
+	ft_printchar("");
