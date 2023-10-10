@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printstr.c                                      :+:      :+:    :+:   */
+/*   ft_printpnts.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alnavarr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 16:42:44 by alnavarr          #+#    #+#             */
-/*   Updated: 2023/10/03 17:52:26 by alnavarr         ###   ########.fr       */
+/*   Created: 2023/10/09 16:34:35 by alnavarr          #+#    #+#             */
+/*   Updated: 2023/10/09 17:28:58 by alnavarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../ft_printf.h"
 
-int	ft_printstr(char const *s, int count)
+int	ft_printhexamin(unsigned int hx, int count)
 {
-	int	i;
+	char	*base;
 
-	i = 0;
-	if (!s)
-		s = "(null)";
-	while (s[i])
+	base = "0123456789abcdef";
+	if (hx > 15)
 	{
-		count = ft_print_char(s[i], count);
+		count = ft_printhexamin(hx / 16, count);
 		if (count == -1)
 			return (-1);
-		i++;
 	}
+	count = ft_printchar(base[hx % 16], count);
+	if (count == -1)
+		return (-1);
+	return (count);
+}
+
+int	ft_printpnts( void *ptr, int count)
+{
+	count = ft_printstr("0x", count);
+	if (count == -1)
+		return (-1);
+	count = ft_printhexamin((unsigned long long)ptr, count);
+	if (count == -1)
+		return (-1);
 	return (count);
 }
