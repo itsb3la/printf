@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alnavarr <alnavarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alnavarr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 12:04:48 by alnavarr          #+#    #+#             */
-/*   Updated: 2022/12/27 11:51:39 by alnavarr         ###   ########.fr       */
+/*   Created: 2023/09/19 17:14:04 by alnavarr          #+#    #+#             */
+/*   Updated: 2023/09/28 17:41:25 by alnavarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,13 @@
 # include<stdarg.h>
 # include<stdlib.h>
 # include<unistd.h>
-# include<stdio.h>
 
 int	ft_printf(char const *s, ...);
-int	ft_printchar(int c, int count);
-int	ft_printstr(char *s, int count);
-int	ft_type(va_list arg, char const type, int count);
-int	ft_printint(int num, int count);
-int	ft_printnum(unsigned int num, int count);
-int	ft_printpt(void *pt, int count);
-int	ft_convert(unsigned long int num, int count);
-int	ft_printhexamin(unsigned int num, int count);
-int	ft_printhexamax(unsigned int num, int count);
+int	ft_printchar(char const c, int count);
+int	ft_printstr(char const *s, int count);
+int	ft_print_digits(int n, int count);
+int	ft_printpnts(void *ptr, int count);
+int	ft_print_unsigned(unsigned int n, int count);
+int	ft_printhexamin(unsigned int hx, int count);
+int	ft_printhexamax(unsigned int hx, int count);
 #endif

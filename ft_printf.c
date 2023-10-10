@@ -3,37 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alnavarr <alnavarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alnavarr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 11:12:03 by alnavarr          #+#    #+#             */
-/*   Updated: 2022/12/27 12:05:58 by alnavarr         ###   ########.fr       */
+/*   Created: 2023/09/19 17:13:31 by alnavarr          #+#    #+#             */
+/*   Updated: 2023/09/28 17:43:29 by alnavarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_type(va_list arg, char const type, int count)
+static	int	ft_cond(char const c, va_list args, int count)
 {
-	if (type == '%')
+	if (c == 'c')
+		count = ft_printchar(va_arg(args, int), count);
+	else if (c == 's')
+		count = ft_printstr(va_arg(args, char *), count);
+	else if (c == 'p')
+		count = ft_printpnts(va_arg(args, void *), count);
+	else if (c == 'd' || c == 'i')
+		count = ft_print_digits(va_arg(args, int), count);
+	else if (c == 'u')
+		count = ft_print_unsigned(va_arg(args, unsigned int), count);
+	else if (c == 'x')
+		count = ft_printhexamin(va_arg(args, long int), count);
+	else if (c == 'X')
+		count = ft_printhexamax(va_arg(args, long int), count);
+	else if (c == '%')
 		count = ft_printchar('%', count);
-	if (type == 'c')
-		count = ft_printchar(va_arg(arg, int), count);
-	if (type == 's')
-		count = ft_printstr(va_arg(arg, char *), count);
-	if (type == 'p')
-		count = ft_printpt(va_arg(arg, void *), count);
-	if (type == 'd' || type == 'i')
-		count = ft_printint(va_arg(arg, int), count);
-	if (type == 'u')
-		count = ft_printnum(va_arg(arg, int), count);
-	if (type == 'x')
-		count = ft_printhexamin(va_arg(arg, unsigned int), count);
-	if (type == 'X')
-		count = ft_printhexamax(va_arg(arg, unsigned int), count);
+	else
+		count = -1;
 	return (count);
 }
 
-int	ft_check(va_list arg, char const *s, int count)
+static int	check(va_list args, char const *s, int count)
 
 {
 	int	i;
@@ -43,10 +45,10 @@ int	ft_check(va_list arg, char const *s, int count)
 	{
 		if (s[i] == '%')
 		{
-			count = ft_type(arg, s[i + 1], count);
+			i++;
+			count = ft_cond((char)s[i], args, count);
 			if (count == -1)
 				return (-1);
-			i++;
 		}
 		else
 		{
@@ -60,14 +62,13 @@ int	ft_check(va_list arg, char const *s, int count)
 }
 
 int	ft_printf(char const *s, ...)
-
 {
+	va_list	args;
 	int		count;
-	va_list	arg;
 
 	count = 0;
-	va_start(arg, s);
-	count = ft_check (arg, s, count);
-	va_end(arg);
+	va_start(args, s);
+	count = check(args, s, count);
+	va_end(args);
 	return (count);
 }

@@ -1,41 +1,62 @@
-NAME	=	libftprintf.a
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: alnavarr <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/09/27 20:12:20 by alnavarr          #+#    #+#              #
+#    Updated: 2023/10/09 17:30:30 by alnavarr         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+HEADER = ft_printf.h
+MKFL	= Makefile
+NAME = libftprintf.a
+
+OBJ_DIR = obj/
 	
 SRCS	=	ftprintf.c	\
 				ft_printchar.c\
 	   			ft_printstr.c\
-				ft_printint.c\
-				ft_printpt.c\
+				ft_printpnts.c\
+				ft_print_digits.c\
+				ft_print_unsigned.c\
 				ft_printhexamin.c\
 				ft_printhexamax.c
 
 CC = gcc
+RM = rm -rf
+MP	= mkdir p
 
-RM = rm -f 
+CFLAGS = -Werror -Wall -Wextra -W -O3 -Ofast 
 
-AR = ar -rcs
+LIBC = ar -rcs
 
-FLAGS	=	-Wall -Wextra -Werror
+OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
+DEP	= $(addsuffix .d, $(basename $(OBJ)))
 
-OBJS	=	${SRCS:%.c=%.o}
-	
-DEPS = $(SRCS:.c=.d)
-.c.o:
-		${CC} ${FLAGS} -MMD ${INCLUDE} -c $v -o $@
+$(OBJ_DIR)%.o: %.c $(MKFL)
+	@$(MP) $(dir $@)
+	${CC} ${CFLAGS} -MMD -I ./ -c $< -o $@
 
+all:
+	@$(MAKE) $(NAME)
 
-all: ${NAME}
+$(NAME):: $(OBJ)
+	$(LIBC) $(NAME) $(OBJ)
 
--include $(DEPS)
-
-${NAME}: ${OBJS}
-	${AR} ${NAME} ${OBJS}
+-include $(DEP)
 
 clean:
-	${RM} ${OBJS} ${DEPS}
+	$(RM) $(OBJ)
 
-fclean: clean
-	${RM} ${NAME}
+fclean:
+	@$(MAKE) clean
+	$(RM) $(NAME)
 
-re: fclean all
+re:
+	@$(MAKE) fclean
+	@$(MAKE) all
 
-.PHONY: all clean fclean re .c.o
+.PHONY: all clean fclean re

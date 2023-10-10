@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printstr.c                                      :+:      :+:    :+:   */
+/*   ft_printhexamin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alnavarr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 16:42:44 by alnavarr          #+#    #+#             */
-/*   Updated: 2023/10/03 17:52:26 by alnavarr         ###   ########.fr       */
+/*   Created: 2023/10/04 18:56:53 by alnavarr          #+#    #+#             */
+/*   Updated: 2023/10/09 15:59:46 by alnavarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../ft_printf.h"
 
-int	ft_printstr(char const *s, int count)
+#include "../printf.h"
+
+int	ft_printhexamin(unsigned int hx, int count)
 {
-	int	i;
+	char	*base;
 
-	i = 0;
-	if (!s)
-		s = "(null)";
-	while (s[i])
+	base = "0123456789abcdef";
+	if (hx > 15)
 	{
-		count = ft_print_char(s[i], count);
+		count = ft_printhexamin(hx / 16, count);
 		if (count == -1)
 			return (-1);
-		i++;
 	}
+	count = ft_printchar(base[hx % 16], count);
+	if (count == -1)
+		return (-1);
 	return (count);
 }

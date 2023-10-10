@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printstr.c                                      :+:      :+:    :+:   */
+/*   ft_print_digits.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alnavarr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 16:42:44 by alnavarr          #+#    #+#             */
-/*   Updated: 2023/10/03 17:52:26 by alnavarr         ###   ########.fr       */
+/*   Created: 2023/09/28 17:51:50 by alnavarr          #+#    #+#             */
+/*   Updated: 2023/10/03 17:07:04 by alnavarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../ft_printf.h"
 
-int	ft_printstr(char const *s, int count)
+int	ft_print_digits(int n, int count)
 {
-	int	i;
+	long int	number;
 
-	i = 0;
-	if (!s)
-		s = "(null)";
-	while (s[i])
+	number = n;
+	if (number < 0)
 	{
-		count = ft_print_char(s[i], count);
-		if (count == -1)
-			return (-1);
-		i++;
+		count = ft_print_char('-', count);
 	}
-	return (count);
 }
